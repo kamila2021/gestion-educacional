@@ -27,6 +27,23 @@ router.post(
   }
 );
 
+// GET /api/v1/institutions (Solo Admin)
+router.get(
+  '/',
+  jwtMiddleware,
+  async (req: AuthRequest, res: Response, next: NextFunction) => {
+    try {
+      if (req.user?.role !== UserRole.ADMIN) {
+        throw new AppError(403, 'Access denied: Only administrators can view all institutions');
+      }
+      const result = await institutionService.getAllInstitutions();
+      res.json(result);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
 // GET /api/v1/institutions/:id (Admin o Profesor perteneciente)
 router.get(
   '/:id',

@@ -156,15 +156,15 @@
 ---
 
 ### Admin UI
-- [ ] AdminModule lazy-loaded
-- [ ] AdminGuard (solo admin)
-- [ ] Dashboard admin
-  - [ ] Crear institución (form)
-  - [ ] Ver instituciones creadas
-  - [ ] Invitar profesor (form)
-- [ ] Componentes responsivos
+- [x] AdminModule lazy-loaded
+- [x] AdminGuard (solo admin)
+- [x] Dashboard admin
+  - [x] Crear institución (form)
+  - [x] Ver instituciones creadas
+  - [x] Invitar profesor (form)
+- [x] Componentes responsivos
 
-**Checkpoint:** Admin crea institución desde UI ✅ / ❌
+**Checkpoint:** Admin crea institución desde UI ✅
 
 ---
 

@@ -109,4 +109,16 @@ describe('InstitutionService Integration Tests', () => {
       institutionService.inviteProfessor(inst.id, inviteData)
     ).rejects.toThrow('Email already registered');
   });
+
+  it('should list all institutions in alphabetical order', async () => {
+    await institutionService.createInstitution({ name: 'Colegio C' }, adminUser.id);
+    await institutionService.createInstitution({ name: 'Colegio A' }, adminUser.id);
+    await institutionService.createInstitution({ name: 'Colegio B' }, adminUser.id);
+
+    const list = await institutionService.getAllInstitutions();
+    expect(list.length).toBe(3);
+    expect(list[0].name).toBe('Colegio A');
+    expect(list[1].name).toBe('Colegio B');
+    expect(list[2].name).toBe('Colegio C');
+  });
 });

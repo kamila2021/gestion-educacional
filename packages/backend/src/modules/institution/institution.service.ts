@@ -120,4 +120,10 @@ export class InstitutionService {
       invitationLink,
     };
   }
+
+  async getAllInstitutions() {
+    return await this.institutionRepo.find({
+      order: { name: 'ASC' }
+    });
+  }
 }

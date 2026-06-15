@@ -122,12 +122,12 @@ Soportar múltiples instituciones aisladas. Cada institución tiene su propio co
 **Entregable:** CRUD instituciones + invitación de profesores
 
 #### 2.3 Admin Dashboard (3 horas)
-- [ ] Crear AdminModule (lazy-loaded)
-- [ ] Dashboard admin:
+- [x] Crear AdminModule (lazy-loaded)
+- [x] Dashboard admin:
   - Crear nueva institución
   - Ver lista de instituciones creadas
   - Invitar profesores
-- [ ] Admin role check en guard
+- [x] Admin role check en guard
 
 **Entregable:** Admin puede crear instituciones
 

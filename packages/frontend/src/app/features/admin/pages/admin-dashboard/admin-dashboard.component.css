@@ -1,0 +1,14 @@
+.glass-panel {
+  background: rgba(12, 15, 23, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(31, 41, 55, 0.5);
+}
+
+.glow-indigo {
+  box-shadow: 0 0 40px rgba(99, 102, 241, 0.1);
+}
+
+.glow-purple {
+  box-shadow: 0 0 40px rgba(168, 85, 247, 0.1);
+}
