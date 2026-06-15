@@ -78,4 +78,4 @@ test:frontend:
   before_script:
     - apt-get update && apt-get install -y chromium
   script:
-    - npm run test --workspace=@edumanager/frontend -- --watch=false --browsers=ChromeHeadlessNoSandbox
+    - npm run test:headless --workspace=@edumanager/frontend
