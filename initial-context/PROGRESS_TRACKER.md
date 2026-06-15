@@ -129,29 +129,29 @@
 ---
 
 ### Institution Backend
-- [ ] POST /api/v1/institutions (crear)
-  - [ ] Solo admin
-  - [ ] Slug único
-  - [ ] Retorna institutionId
-- [ ] GET /api/v1/institutions/:id
-  - [ ] Solo admin o miembro
-- [ ] PATCH /api/v1/institutions/:id
-  - [ ] Editar nombre, logo
-  - [ ] Solo admin
-- [ ] POST /api/v1/institutions/:id/invite-professor
-  - [ ] Email invitación
-  - [ ] Crea usuario profesor
-  - [ ] Link único
+- [x] POST /api/v1/institutions (crear)
+  - [x] Solo admin
+  - [x] Slug único
+  - [x] Retorna institutionId
+- [x] GET /api/v1/institutions/:id
+  - [x] Solo admin o miembro
+- [x] PATCH /api/v1/institutions/:id
+  - [x] Editar nombre, logo
+  - [x] Solo admin
+- [x] POST /api/v1/institutions/:id/invite-professor
+  - [x] Email invitación
+  - [x] Crea usuario profesor
+  - [x] Link único
 - [ ] TenantMiddleware
-  - [ ] Valida institutionId en token
+  - [x] Valida institutionId en token
   - [ ] Todos los endpoints lo usan
 
-**Checkpoint:** Admin puede crear institución + invitar profesor ✅ / ❌
+**Checkpoint:** Admin puede crear institución + invitar profesor ✅
 
 **Tests Backend:**
-- [ ] InstitutionService ✅ / ❌
-- [ ] Middleware tenant valida ✅ / ❌
-- [ ] Email invitación envía ✅ / ❌
+- [x] InstitutionService ✅
+- [x] Middleware tenant valida ✅
+- [x] Email invitación envía ✅
 
 ---
 
@@ -170,16 +170,16 @@
 
 ### Email Service
 - [ ] EmailService
-  - [ ] notifyProfessorInvitation()
+  - [x] notifyProfessorInvitation()
   - [ ] notifyStudentEnrollment()
-- [ ] Templates HTML
-  - [ ] Profesional
-  - [ ] Con logo
-  - [ ] Links funcionales
-- [ ] Nodemailer configurable
-- [ ] Test SMTP funciona
+- [x] Templates HTML
+  - [x] Profesional
+  - [x] Con logo
+  - [x] Links funcionales
+- [x] Nodemailer configurable
+- [x] Test SMTP funciona
 
-**Checkpoint:** Email de invitación se recibe ✅ / ❌
+**Checkpoint:** Email de invitación se recibe ✅
 
 ---
 
