@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.env
+.env.test
+.DS_Store
+.angular/
+/packages/frontend/dist/
+/packages/frontend/.angular/
+/packages/frontend/node_modules/

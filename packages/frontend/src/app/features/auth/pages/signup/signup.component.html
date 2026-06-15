@@ -1,0 +1,151 @@
+<div class="min-h-screen flex bg-[#080b11]">
+  <!-- Left Side: Registration Form -->
+  <div class="flex-1 flex flex-col justify-center py-12 px-6 sm:px-12 lg:flex-none lg:w-[480px] bg-[#0c0f17] border-r border-[#1f2937]/50 shadow-2xl relative z-10">
+    <div class="mx-auto w-full max-w-sm">
+      <!-- Title -->
+      <div>
+        <div class="inline-flex items-center justify-center p-2.5 bg-indigo-600/10 rounded-xl border border-indigo-500/20 mb-6">
+          <svg class="w-6 h-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+          </svg>
+        </div>
+        <h2 class="text-3xl font-extrabold text-white tracking-tight font-display">Registra tu Cuenta</h2>
+        <p class="mt-2 text-sm text-gray-400">Comienza a configurar EduManager para tu institución.</p>
+      </div>
+
+      <!-- Form -->
+      <div class="mt-8">
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="space-y-4">
+          <!-- Error Alert -->
+          <div *ngIf="error" class="p-4 bg-red-950/40 border border-red-500/30 rounded-xl flex items-start space-x-3 text-red-200 text-sm animate-pulse">
+            <svg class="w-5 h-5 text-red-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>{{ error }}</span>
+          </div>
+
+          <!-- First Name & Last Name (Grid Layout) -->
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="firstName" class="block text-xs font-semibold text-gray-400 uppercase tracking-wider">Nombre</label>
+              <input id="firstName" formControlName="firstName" type="text" required
+                [class.border-red-500]="submitted && f['firstName'].errors"
+                class="block w-full mt-2 px-3 py-2.5 bg-[#131924] border border-[#1f2937] rounded-xl text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 focus:bg-[#151d2b] transition-all duration-200 text-sm"
+                placeholder="Juan">
+            </div>
+            <div>
+              <label for="lastName" class="block text-xs font-semibold text-gray-400 uppercase tracking-wider">Apellido</label>
+              <input id="lastName" formControlName="lastName" type="text" required
+                [class.border-red-500]="submitted && f['lastName'].errors"
+                class="block w-full mt-2 px-3 py-2.5 bg-[#131924] border border-[#1f2937] rounded-xl text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 focus:bg-[#151d2b] transition-all duration-200 text-sm"
+                placeholder="Pérez">
+            </div>
+          </div>
+          <div *ngIf="submitted && (f['firstName'].errors || f['lastName'].errors)" class="text-xs text-red-400">
+            <span>● Nombre y apellido son obligatorios.</span>
+          </div>
+
+          <!-- Email Input -->
+          <div>
+            <label for="email" class="block text-xs font-semibold text-gray-400 uppercase tracking-wider">Correo Electrónico</label>
+            <input id="email" formControlName="email" type="email" required
+              [class.border-red-500]="submitted && f['email'].errors"
+              class="block w-full mt-2 px-3 py-3 bg-[#131924] border border-[#1f2937] rounded-xl text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 focus:bg-[#151d2b] transition-all duration-200 text-sm"
+              placeholder="nombre@ejemplo.com">
+            <div *ngIf="submitted && f['email'].errors" class="mt-1 text-xs text-red-400">
+              <span>● Correo electrónico requerido o no válido.</span>
+            </div>
+          </div>
+
+          <!-- Password Input -->
+          <div>
+            <label for="password" class="block text-xs font-semibold text-gray-400 uppercase tracking-wider">Contraseña</label>
+            <input id="password" formControlName="password" type="password" required
+              [class.border-red-500]="submitted && f['password'].errors"
+              class="block w-full mt-2 px-3 py-3 bg-[#131924] border border-[#1f2937] rounded-xl text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 focus:bg-[#151d2b] transition-all duration-200 text-sm"
+              placeholder="••••••••">
+            
+            <!-- Strength Meter -->
+            <div *ngIf="signupForm.get('password')?.value" class="mt-2 space-y-1">
+              <div class="flex justify-between items-center text-[10px] font-semibold tracking-wider text-gray-400 uppercase">
+                <span>Seguridad:</span>
+                <span class="font-bold transition-all duration-300" [ngClass]="{
+                  'text-red-400': getPasswordStrength().score <= 2,
+                  'text-amber-400': getPasswordStrength().score > 2 && getPasswordStrength().score <= 4,
+                  'text-emerald-400': getPasswordStrength().score > 4
+                }">{{ getPasswordStrength().label }}</span>
+              </div>
+              <div class="h-1.5 w-full bg-[#131924] border border-[#1f2937] rounded-full overflow-hidden">
+                <div class="h-full transition-all duration-500 rounded-full" [ngClass]="getPasswordStrength().colorClass" [style.width]="getPasswordStrength().widthClass"></div>
+              </div>
+            </div>
+
+            <div *ngIf="submitted && f['password'].errors" class="mt-1 text-xs text-red-400">
+              <span>● Mínimo 6 caracteres requeridos.</span>
+            </div>
+          </div>
+
+          <!-- Confirm Password Input -->
+          <div>
+            <label for="confirmPassword" class="block text-xs font-semibold text-gray-400 uppercase tracking-wider">Confirmar Contraseña</label>
+            <input id="confirmPassword" formControlName="confirmPassword" type="password" required
+              [class.border-red-500]="submitted && (f['confirmPassword'].errors || signupForm.errors?.['passwordMismatch'])"
+              class="block w-full mt-2 px-3 py-3 bg-[#131924] border border-[#1f2937] rounded-xl text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 focus:bg-[#151d2b] transition-all duration-200 text-sm"
+              placeholder="••••••••">
+            <div *ngIf="submitted && f['confirmPassword'].errors?.['required']" class="mt-1.5 text-xs text-red-400">
+              <span>● Confirmar la contraseña es obligatorio.</span>
+            </div>
+            <div *ngIf="submitted && !f['confirmPassword'].errors?.['required'] && signupForm.errors?.['passwordMismatch']" class="mt-1.5 text-xs text-red-400">
+              <span>● Las contraseñas no coinciden.</span>
+            </div>
+          </div>
+
+          <!-- Role Select -->
+          <div>
+            <label for="role" class="block text-xs font-semibold text-gray-400 uppercase tracking-wider">Rol de Registro</label>
+            <select id="role" formControlName="role"
+              class="block w-full mt-2 px-3 py-3 bg-[#131924] border border-[#1f2937] rounded-xl text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 focus:bg-[#151d2b] transition-all duration-200 text-sm cursor-pointer">
+              <option value="admin">Administrador de Institución</option>
+              <option value="professor">Profesor</option>
+            </select>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="pt-2">
+            <button type="submit" [disabled]="loading"
+              class="w-full flex justify-center py-3.5 px-4 border border-transparent rounded-xl shadow-lg text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-[#0c0f17] disabled:opacity-50 disabled:cursor-not-allowed transform active:scale-[0.98] transition-all duration-150 cursor-pointer shadow-indigo-600/20">
+              <svg *ngIf="loading" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <span>{{ loading ? 'Registrando cuenta...' : 'Crear Cuenta' }}</span>
+            </button>
+          </div>
+        </form>
+
+        <!-- Link to Login -->
+        <div class="mt-6 pt-4 border-t border-[#1f2937]/50 text-center">
+          <p class="text-sm text-gray-400">
+            ¿Ya tienes una cuenta?
+            <a routerLink="/auth/login" class="font-medium text-indigo-400 hover:text-indigo-300 transition-colors duration-150">Inicia Sesión</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Side: Decorative panel -->
+  <div class="hidden lg:flex flex-1 items-center justify-center bg-[#070b12] relative overflow-hidden">
+    <div class="absolute w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[120px] -top-24 -left-12 animate-pulse"></div>
+    <div class="absolute w-[400px] h-[400px] bg-purple-500/10 rounded-full blur-[100px] -bottom-24 -right-12 animate-pulse duration-3000"></div>
+
+    <div class="max-w-xl text-center px-8 relative z-10 flex flex-col items-center">
+      <div class="relative w-[360px] h-[360px] mb-10 rounded-3xl overflow-hidden shadow-2xl border border-white/5 bg-[#0e1420]/60 p-2 backdrop-blur-xl">
+        <img src="assets/images/login_illustration.png" alt="EduManager Welcome" class="w-full h-full object-cover rounded-2xl">
+      </div>
+      
+      <h3 class="text-3xl font-extrabold text-white tracking-tight font-display mb-4">Únete a EduManager</h3>
+      <p class="text-gray-400 leading-relaxed text-sm">Empieza a digitalizar tu institución educativa. Administra roles, publica tareas, califica de forma ágil y notifica al instante.</p>
+    </div>
+  </div>
+</div>

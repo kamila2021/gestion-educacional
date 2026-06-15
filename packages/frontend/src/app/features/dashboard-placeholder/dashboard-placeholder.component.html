@@ -1,0 +1,202 @@
+<div class="min-h-screen bg-[#080b11] text-gray-100 flex flex-col font-sans">
+  <!-- Top Navigation Header -->
+  <header class="bg-[#0c0f17]/80 border-b border-[#1f2937]/50 backdrop-blur-xl sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <div class="flex items-center space-x-3">
+          <div class="inline-flex items-center justify-center p-2 bg-indigo-600/10 rounded-xl border border-indigo-500/20">
+            <svg class="w-6 h-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
+          <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">EduManager</span>
+        </div>
+
+        <!-- User controls -->
+        <div class="flex items-center space-x-4">
+          <div class="hidden sm:flex flex-col text-right">
+            <span class="text-sm font-semibold text-gray-200">{{ user?.firstName }} {{ user?.lastName }}</span>
+            <span class="text-xs text-gray-400 capitalize">{{ user?.role }}</span>
+          </div>
+          <button (click)="logout()"
+            class="inline-flex items-center justify-center px-4 py-2 bg-red-950/20 hover:bg-red-950/40 border border-red-500/20 rounded-xl text-sm font-semibold text-red-300 hover:text-red-200 transition-all duration-200 cursor-pointer">
+            <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            Salir
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 relative">
+    <!-- Neon blur glow backgrounds -->
+    <div class="absolute w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-[120px] top-12 left-1/4 -translate-x-1/2 pointer-events-none"></div>
+    <div class="absolute w-[400px] h-[400px] bg-purple-500/5 rounded-full blur-[100px] bottom-12 right-1/4 translate-x-1/2 pointer-events-none"></div>
+
+    <div class="relative z-10 space-y-8">
+      <!-- Welcome Section -->
+      <div class="bg-gradient-to-r from-indigo-950/20 to-purple-950/20 border border-indigo-500/10 rounded-3xl p-6 sm:p-8 backdrop-blur-xl flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div>
+          <h1 class="text-3xl font-extrabold tracking-tight font-display mb-2 text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300">
+            ¡Hola, {{ user?.firstName }}! 👋
+          </h1>
+          <p class="text-gray-400 text-sm max-w-xl">
+            Te has autenticado correctamente en la plataforma. Este es tu panel de administración principal como <strong class="text-indigo-400 capitalize">{{ user?.role }}</strong>.
+          </p>
+        </div>
+        <div class="shrink-0 px-5 py-3 bg-[#0c0f17] border border-[#1f2937] rounded-2xl flex items-center space-x-3 shadow-lg">
+          <div class="w-3.5 h-3.5 rounded-full bg-emerald-500 animate-pulse"></div>
+          <span class="text-xs font-semibold tracking-wider uppercase text-gray-400">Sesión Activa</span>
+        </div>
+      </div>
+
+      <!-- Stat Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Card 1 -->
+        <div class="bg-[#0c0f17]/60 border border-[#1f2937]/50 rounded-2xl p-6 hover:border-indigo-500/40 transition-all duration-300 group shadow-lg">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Cursos Activos</span>
+            <div class="p-2 bg-indigo-500/10 rounded-lg text-indigo-400 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+            </div>
+          </div>
+          <div class="mt-4">
+            <h3 class="text-3xl font-bold tracking-tight text-white">12</h3>
+            <p class="text-xs text-gray-500 mt-1">Materias en curso</p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-[#0c0f17]/60 border border-[#1f2937]/50 rounded-2xl p-6 hover:border-indigo-500/40 transition-all duration-300 group shadow-lg">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Estudiantes</span>
+            <div class="p-2 bg-emerald-500/10 rounded-lg text-emerald-400 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+            </div>
+          </div>
+          <div class="mt-4">
+            <h3 class="text-3xl font-bold tracking-tight text-white">148</h3>
+            <p class="text-xs text-gray-500 mt-1">Alumnos matriculados</p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-[#0c0f17]/60 border border-[#1f2937]/50 rounded-2xl p-6 hover:border-indigo-500/40 transition-all duration-300 group shadow-lg">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Calificaciones</span>
+            <div class="p-2 bg-amber-500/10 rounded-lg text-amber-400 group-hover:bg-amber-600 group-hover:text-white transition-all duration-300">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+              </svg>
+            </div>
+          </div>
+          <div class="mt-4">
+            <h3 class="text-3xl font-bold tracking-tight text-white">5</h3>
+            <p class="text-xs text-gray-500 mt-1">Tareas pendientes de revisar</p>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="bg-[#0c0f17]/60 border border-[#1f2937]/50 rounded-2xl p-6 hover:border-indigo-500/40 transition-all duration-300 group shadow-lg">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Seguridad 2FA</span>
+            <div class="p-2 rounded-lg transition-all duration-300"
+              [ngClass]="user?.twoFactorEnabled ? 'bg-purple-500/10 text-purple-400 group-hover:bg-purple-600 group-hover:text-white' : 'bg-red-500/10 text-red-400 group-hover:bg-red-600 group-hover:text-white'">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+          </div>
+          <div class="mt-4">
+            <h3 class="text-3xl font-bold tracking-tight text-white">
+              {{ user?.twoFactorEnabled ? 'Activo' : 'Inactivo' }}
+            </h3>
+            <p class="text-xs text-gray-500 mt-1">Doble factor de autenticación</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Information & Details grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Profile info card -->
+        <div class="lg:col-span-1 bg-[#0c0f17]/60 border border-[#1f2937]/50 rounded-3xl p-6 backdrop-blur-xl shadow-lg space-y-6">
+          <div>
+            <h3 class="text-lg font-bold text-white tracking-tight">Detalles de Usuario</h3>
+            <p class="text-xs text-gray-500">Información de la cuenta actual obtenida del token JWT.</p>
+          </div>
+
+          <div class="space-y-4 text-sm">
+            <div class="p-3 bg-[#131924] border border-[#1f2937] rounded-xl">
+              <span class="block text-xs font-semibold text-gray-400 uppercase tracking-wider">Identificador (ID)</span>
+              <span class="block text-gray-200 mt-1 font-mono break-all text-xs">{{ user?.id }}</span>
+            </div>
+            <div class="p-3 bg-[#131924] border border-[#1f2937] rounded-xl">
+              <span class="block text-xs font-semibold text-gray-400 uppercase tracking-wider">Nombre Completo</span>
+              <span class="block text-gray-200 mt-1">{{ user?.firstName }} {{ user?.lastName }}</span>
+            </div>
+            <div class="p-3 bg-[#131924] border border-[#1f2937] rounded-xl">
+              <span class="block text-xs font-semibold text-gray-400 uppercase tracking-wider">Correo Electrónico</span>
+              <span class="block text-gray-200 mt-1 font-mono text-xs">{{ user?.email }}</span>
+            </div>
+            <div class="p-3 bg-[#131924] border border-[#1f2937] rounded-xl">
+              <span class="block text-xs font-semibold text-gray-400 uppercase tracking-wider">Rol Asignado</span>
+              <span class="block text-gray-200 mt-1 capitalize">{{ user?.role }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Documentation/Placeholder dashboard view -->
+        <div class="lg:col-span-2 bg-[#0c0f17]/60 border border-[#1f2937]/50 rounded-3xl p-6 backdrop-blur-xl shadow-lg flex flex-col justify-between">
+          <div class="space-y-4">
+            <h3 class="text-lg font-bold text-white tracking-tight">Siguientes Pasos del Desarrollo</h3>
+            <p class="text-sm text-gray-400">
+              Has completado exitosamente la **Tarea 1.4: Auth Frontend**. Has conectado este cliente Angular con el backend de NestJS en Express, logrando autenticación completa con JWT y verificación 2FA.
+            </p>
+            
+            <div class="border border-[#1f2937] rounded-2xl overflow-hidden divide-y divide-[#1f2937]">
+              <div class="p-4 flex items-start space-x-3 hover:bg-[#131924]/40 transition-colors">
+                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center justify-center font-bold text-xs">1</span>
+                <div>
+                  <h4 class="text-sm font-semibold text-gray-200">Panel de Profesores y Alumnos</h4>
+                  <p class="text-xs text-gray-400 mt-0.5">Creación de vistas específicas según los roles definidos para el MVP.</p>
+                </div>
+              </div>
+              <div class="p-4 flex items-start space-x-3 hover:bg-[#131924]/40 transition-colors">
+                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center justify-center font-bold text-xs">2</span>
+                <div>
+                  <h4 class="text-sm font-semibold text-gray-200">Gestión de Cursos y Calificaciones</h4>
+                  <p class="text-xs text-gray-400 mt-0.5">Módulos CRUD completos de asignaturas y boletines de notas.</p>
+                </div>
+              </div>
+              <div class="p-4 flex items-start space-x-3 hover:bg-[#131924]/40 transition-colors">
+                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center justify-center font-bold text-xs">3</span>
+                <div>
+                  <h4 class="text-sm font-semibold text-gray-200">Notificaciones y Mensajería</h4>
+                  <p class="text-xs text-gray-400 mt-0.5">Envío de alertas automáticas sobre evaluaciones y eventos.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-6 border-t border-[#1f2937]/50 flex justify-end">
+            <a href="https://github.com" target="_blank"
+              class="inline-flex items-center justify-center px-5 py-3 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-sm font-semibold text-white shadow-lg shadow-indigo-600/20 hover:shadow-indigo-500/30 transform hover:scale-[1.01] transition-all duration-200 cursor-pointer">
+              Ver Repositorio
+              <svg class="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

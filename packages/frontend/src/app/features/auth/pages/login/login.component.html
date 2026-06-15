@@ -1,0 +1,109 @@
+<div class="min-h-screen flex bg-[#080b11]">
+  <!-- Left Side: Login Form -->
+  <div class="flex-1 flex flex-col justify-center py-12 px-6 sm:px-12 lg:flex-none lg:w-[480px] bg-[#0c0f17] border-r border-[#1f2937]/50 shadow-2xl relative z-10">
+    <div class="mx-auto w-full max-w-sm">
+      <!-- Title -->
+      <div>
+        <div class="inline-flex items-center justify-center p-2.5 bg-indigo-600/10 rounded-xl border border-indigo-500/20 mb-6">
+          <svg class="w-6 h-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+        </div>
+        <h2 class="text-3xl font-extrabold text-white tracking-tight font-display">¡Bienvenido de vuelta!</h2>
+        <p class="mt-2 text-sm text-gray-400">Ingresa tus credenciales para acceder a EduManager.</p>
+      </div>
+
+      <!-- Form -->
+      <div class="mt-8">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6">
+          <!-- Error Alert -->
+          <div *ngIf="error" class="p-4 bg-red-950/40 border border-red-500/30 rounded-xl flex items-start space-x-3 text-red-200 text-sm animate-pulse">
+            <svg class="w-5 h-5 text-red-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>{{ error }}</span>
+          </div>
+
+          <!-- Email Input -->
+          <div>
+            <label for="email" class="block text-xs font-semibold text-gray-400 uppercase tracking-wider">Correo Electrónico</label>
+            <div class="mt-2 relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg class="h-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.206" />
+                </svg>
+              </div>
+              <input id="email" formControlName="email" type="email" autocomplete="email" required
+                [class.border-red-500]="submitted && f['email'].errors"
+                [class.focus:ring-red-500]="submitted && f['email'].errors"
+                [class.focus:border-red-500]="submitted && f['email'].errors"
+                class="block w-full pl-10 pr-3 py-3 bg-[#131924] border border-[#1f2937] rounded-xl text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 focus:bg-[#151d2b] transition-all duration-200 text-sm"
+                placeholder="nombre@ejemplo.com">
+            </div>
+            <div *ngIf="submitted && f['email'].errors" class="mt-1.5 text-xs text-red-400 flex items-center space-x-1">
+              <span>● Correo electrónico requerido o no válido.</span>
+            </div>
+          </div>
+
+          <!-- Password Input -->
+          <div>
+            <label for="password" class="block text-xs font-semibold text-gray-400 uppercase tracking-wider">Contraseña</label>
+            <div class="mt-2 relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg class="h-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </div>
+              <input id="password" formControlName="password" type="password" autocomplete="current-password" required
+                [class.border-red-500]="submitted && f['password'].errors"
+                [class.focus:ring-red-500]="submitted && f['password'].errors"
+                [class.focus:border-red-500]="submitted && f['password'].errors"
+                class="block w-full pl-10 pr-3 py-3 bg-[#131924] border border-[#1f2937] rounded-xl text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 focus:bg-[#151d2b] transition-all duration-200 text-sm"
+                placeholder="••••••••">
+            </div>
+            <div *ngIf="submitted && f['password'].errors" class="mt-1.5 text-xs text-red-400 flex items-center space-x-1">
+              <span>● Contraseña obligatoria (mínimo 6 caracteres).</span>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div>
+            <button type="submit" [disabled]="loading"
+              class="w-full flex justify-center py-3.5 px-4 border border-transparent rounded-xl shadow-lg text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-[#0c0f17] disabled:opacity-50 disabled:cursor-not-allowed transform active:scale-[0.98] transition-all duration-150 cursor-pointer shadow-indigo-600/20">
+              <svg *ngIf="loading" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <span>{{ loading ? 'Iniciando sesión...' : 'Iniciar Sesión' }}</span>
+            </button>
+          </div>
+        </form>
+
+        <!-- Link to Signup -->
+        <div class="mt-8 pt-6 border-t border-[#1f2937]/50 text-center">
+          <p class="text-sm text-gray-400">
+            ¿No tienes cuenta?
+            <a routerLink="/auth/signup" class="font-medium text-indigo-400 hover:text-indigo-300 transition-colors duration-150">Registra tu institución</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Side: Interactive premium decorative illustration panel -->
+  <div class="hidden lg:flex flex-1 items-center justify-center bg-[#070b12] relative overflow-hidden">
+    <!-- Neon blur glow backgrounds -->
+    <div class="absolute w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[120px] -top-24 -left-12 animate-pulse"></div>
+    <div class="absolute w-[400px] h-[400px] bg-purple-500/10 rounded-full blur-[100px] -bottom-24 -right-12 animate-pulse duration-3000"></div>
+
+    <div class="max-w-xl text-center px-8 relative z-10 flex flex-col items-center">
+      <!-- Premium IA generated UI mockup illustration asset -->
+      <div class="relative w-[360px] h-[360px] mb-10 rounded-3xl overflow-hidden shadow-2xl border border-white/5 bg-[#0e1420]/60 p-2 backdrop-blur-xl">
+        <img src="assets/images/login_illustration.png" alt="EduManager Welcome" class="w-full h-full object-cover rounded-2xl">
+      </div>
+      
+      <h3 class="text-3xl font-extrabold text-white tracking-tight font-display mb-4">EduManager Platform</h3>
+      <p class="text-gray-400 leading-relaxed text-sm">Gestiona cursos, calificaciones y tareas en un entorno multi-tenant diseñado con la máxima eficiencia y estética moderna.</p>
+    </div>
+  </div>
+</div>

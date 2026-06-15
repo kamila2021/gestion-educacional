@@ -1,0 +1,66 @@
+<div class="min-h-screen flex items-center justify-center bg-[#080b11] relative overflow-hidden px-4">
+  <!-- Neon blur glow backgrounds -->
+  <div class="absolute w-[400px] h-[400px] bg-indigo-500/10 rounded-full blur-[100px] -top-12 -left-12 animate-pulse"></div>
+  <div class="absolute w-[400px] h-[400px] bg-purple-500/10 rounded-full blur-[100px] -bottom-12 -right-12 animate-pulse duration-3000"></div>
+
+  <!-- Central Card -->
+  <div class="w-full max-w-md bg-[#0c0f17]/80 border border-[#1f2937]/50 rounded-3xl p-8 shadow-2xl backdrop-blur-xl relative z-10">
+    <div class="text-center">
+      <!-- Icon -->
+      <div class="inline-flex items-center justify-center p-3 bg-indigo-600/10 rounded-2xl border border-indigo-500/20 mb-6">
+        <svg class="w-8 h-8 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        </svg>
+      </div>
+      <h2 class="text-2xl font-extrabold text-white tracking-tight font-display">Verificación en Dos Pasos</h2>
+      <p class="mt-2 text-sm text-gray-400">Ingresa el código de 6 dígitos de tu aplicación de autenticación para continuar.</p>
+    </div>
+
+    <!-- Form -->
+    <div class="mt-8">
+      <form [formGroup]="twoFactorForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <!-- Error Alert -->
+        <div *ngIf="error" class="p-4 bg-red-950/40 border border-red-500/30 rounded-xl flex items-start space-x-3 text-red-200 text-sm animate-pulse">
+          <svg class="w-5 h-5 text-red-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>{{ error }}</span>
+        </div>
+
+        <!-- Code Input -->
+        <div>
+          <label for="code" class="block text-center text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Código de Seguridad</label>
+          <div class="relative max-w-[240px] mx-auto">
+            <input id="code" formControlName="code" type="text" pattern="[0-9]*" inputmode="numeric" maxlength="6" autocomplete="one-time-code" required autofocus
+              [class.border-red-500]="submitted && f['code'].errors"
+              [class.focus:ring-red-500]="submitted && f['code'].errors"
+              [class.focus:border-red-500]="submitted && f['code'].errors"
+              class="block w-full text-center tracking-[0.75em] text-2xl font-mono py-3.5 bg-[#131924] border border-[#1f2937] rounded-xl text-gray-200 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 focus:bg-[#151d2b] transition-all duration-200"
+              placeholder="000000">
+          </div>
+          <div *ngIf="submitted && f['code'].errors" class="mt-2 text-center text-xs text-red-400">
+            <span *ngIf="f['code'].errors['required']">● El código es obligatorio.</span>
+            <span *ngIf="f['code'].errors['minlength'] || f['code'].errors['maxlength'] || f['code'].errors['pattern']">● Debe tener exactamente 6 dígitos numéricos.</span>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div>
+          <button type="submit" [disabled]="loading"
+            class="w-full flex justify-center py-3.5 px-4 border border-transparent rounded-xl shadow-lg text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-[#0c0f17] disabled:opacity-50 disabled:cursor-not-allowed transform active:scale-[0.98] transition-all duration-150 cursor-pointer shadow-indigo-600/20">
+            <svg *ngIf="loading" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span>{{ loading ? 'Verificando...' : 'Verificar Código' }}</span>
+          </button>
+        </div>
+      </form>
+
+      <!-- Back Link -->
+      <div class="mt-6 pt-4 border-t border-[#1f2937]/50 text-center">
+        <a routerLink="/auth/login" class="font-medium text-sm text-indigo-400 hover:text-indigo-300 transition-colors duration-150">Volver al Inicio de Sesión</a>
+      </div>
+    </div>
+  </div>
+</div>
