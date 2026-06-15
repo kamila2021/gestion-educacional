@@ -626,6 +626,18 @@ Antes de considerar el MVP "done":
 
 ---
 
+**Mejoras Potenciales:**
+- Semana 1:
+  - **Rate Limiting en Auth**: Implementar limitación de tasa (rate limiting) mediante `express-rate-limit` en los endpoints de `/login` y `/signup` para mitigar ataques de fuerza bruta.
+  - **Códigos de Respaldo 2FA**: Generar códigos estáticos de recuperación de un solo uso durante la activación del 2FA para evitar el bloqueo de cuentas si se pierde el celular.
+  - **Recordar Dispositivo (2FA)**: Añadir cookies seguras para omitir el 2FA en dispositivos de confianza por 30 días.
+  - **Inputs Divididos para 2FA en UI**: Mejorar la UX dividiendo el input único de 6 dígitos en 6 casillas independientes con auto-tab y auto-paste inteligente.
+  - **Visibilidad de Contraseñas**: Agregar botones para alternar la visualización del texto de la contraseña en login y registro.
+- Semana 2:
+- Semana 3:
+- Semana 4:
+- Semana 5:
+- Semana 6: 
 **Documento actualizado:** Junio 2026  
 **Status:** LISTO PARA COMENZAR  
 **Próximo checkpoint:** Fin Semana 1
