@@ -2,7 +2,7 @@ import { AppDataSource } from '../../database/connection';
 import { User } from '../../entities/User';
 import { TwoFactorSecret } from '../../entities/TwoFactorSecret';
 import { RefreshToken } from '../../entities/RefreshToken';
-import { SignupDto, LoginDto, Verify2FaDto } from './auth.dto';
+import { SignupDto, LoginDto, Verify2FaDto, AcceptInvitationDto } from './auth.dto';
 import { hashPassword, comparePassword } from '../../common/utils/crypto';
 import { AppError } from '../../common/utils/errors';
 import { UserRole } from '@edumanager/shared';
@@ -191,5 +191,44 @@ export class AuthService {
       await this.tokenRepo.remove(rt);
     }
     return { success: true };
+  }
+
+  async acceptInvitation(dto: AcceptInvitationDto) {
+    let payload: any;
+    try {
+      payload = jwt.verify(dto.token, process.env.JWT_SECRET!) as any;
+    } catch (error) {
+      throw new AppError(401, 'Invalid or expired invitation token');
+    }
+
+    const user = await this.userRepo.findOneBy({ id: payload.userId });
+    if (!user) {
+      throw new AppError(404, 'User not found');
+    }
+
+    if (user.role !== UserRole.PROFESSOR) {
+      throw new AppError(400, 'Invalid user role for invitation');
+    }
+
+    const passwordHash = await hashPassword(dto.password);
+    user.firstName = dto.firstName;
+    user.lastName = dto.lastName;
+    user.passwordHash = passwordHash;
+
+    await this.userRepo.save(user);
+
+    const { token, refreshToken } = this.generateTokens(user);
+
+    const expiresAt = new Date();
+    expiresAt.setDate(expiresAt.getDate() + 7);
+    const rt = this.tokenRepo.create({
+      userId: user.id,
+      token: refreshToken,
+      expiresAt,
+    });
+    await this.tokenRepo.save(rt);
+
+    const { passwordHash: _, ...userWithoutPassword } = user;
+    return { token, refreshToken, user: userWithoutPassword };
   }
 }

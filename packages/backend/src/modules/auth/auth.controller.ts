@@ -1,6 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { AuthService } from './auth.service';
-import { SignupDto, LoginDto, Verify2FaDto, RefreshTokenDto } from './auth.dto';
+import { SignupDto, LoginDto, Verify2FaDto, RefreshTokenDto, AcceptInvitationDto } from './auth.dto';
 import { validateBody } from '../../common/middleware/validation.middleware';
 import { jwtMiddleware, AuthRequest } from '../../common/middleware/jwt.middleware';
 import jwt from 'jsonwebtoken';
@@ -68,6 +68,15 @@ router.post('/refresh', validateBody(RefreshTokenDto), async (req: Request, res:
 router.post('/logout', validateBody(RefreshTokenDto), async (req: Request, res: Response, next: NextFunction) => {
   try {
     const result = await authService.logout(req.body.refreshToken);
+    res.json(result);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/accept-invitation', validateBody(AcceptInvitationDto), async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const result = await authService.acceptInvitation(req.body);
     res.json(result);
   } catch (err) {
     next(err);

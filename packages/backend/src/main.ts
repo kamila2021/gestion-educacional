@@ -6,6 +6,7 @@ import 'express-async-errors';
 
 import { AppDataSource } from './database/connection';
 import authRouter from './modules/auth/auth.controller';
+import institutionRouter from './modules/institution/institution.controller';
 import { errorHandler } from './common/middleware/error.middleware';
 
 dotenv.config();
@@ -22,6 +23,7 @@ app.get('/api/v1/health', (req, res) => {
 });
 
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/institutions', institutionRouter);
 
 // Error handling middleware should be registered last
 app.use(errorHandler);
