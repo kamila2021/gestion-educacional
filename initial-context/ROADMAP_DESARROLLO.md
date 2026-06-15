@@ -100,11 +100,11 @@ Soportar múltiples instituciones aisladas. Cada institución tiene su propio co
 ### ✅ Tareas
 
 #### 2.1 Entities & Database (3 horas)
-- [ ] Crear entidad Institution
+- [x] Crear entidad Institution
   - name, slug, logoUrl, createdAt
-- [ ] Agregar institutionId a User (FK)
-- [ ] Crear middleware que valide institutionId del token
-- [ ] Migrations para agregar columnas
+- [x] Agregar institutionId a User (FK)
+- [x] Crear middleware que valide institutionId del token
+- [x] Migrations para agregar columnas
 
 **Entregable:** Datos aislados por institución
 

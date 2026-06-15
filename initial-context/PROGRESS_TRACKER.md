@@ -115,16 +115,16 @@
 
 ## 📅 SEMANA 2: MULTI-TENANCY & INSTITUCIONES
 
-**Status:** ⏳ NO INICIADO | ⏹️ EN PROGRESO | ✅ COMPLETADO
+**Status:** ⏹️ EN PROGRESO
 
 ### Database
-- [ ] Entidad Institution
-  - [ ] id, name, slug, logoUrl, createdAt
-- [ ] Migration: agregar institutionId a User
-- [ ] Migration: crear tabla Institution
-- [ ] Índices para slug único
+- [x] Entidad Institution
+  - [x] id, name, slug, logoUrl, createdAt
+- [x] Migration: agregar institutionId a User
+- [x] Migration: crear tabla Institution
+- [x] Índices para slug único
 
-**Checkpoint:** Migrations ejecutadas ✅ / ❌
+**Checkpoint:** Migrations ejecutadas ✅
 
 ---
 
