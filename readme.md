@@ -52,7 +52,7 @@ gestion-educacional/
 *   Pipeline multicapa configurado en [.gitlab-ci.yml](.gitlab-ci.yml).
 *   **Caching inteligente**: Almacena en caché dependencias `node_modules` para optimizar los tiempos de ejecución de la pipeline en base al hash de `package-lock.json`.
 *   **Base de Datos Paralela en Test**: Usa servicios dinámicos de GitLab para instanciar un contenedor `postgres:15-alpine` que sirve a las pruebas de integración del backend con inicialización del esquema automático.
-*   **Pruebas de Frontend Headless**: Configurado el aprovisionamiento de Chromium a nivel de contenedor para que las pruebas de Karma se ejecuten de manera headless en la fase de test.
+*   **Pruebas de Frontend Headless**: Configurado el aprovisionamiento de Chromium a nivel de contenedor y un launcher personalizado `ChromeHeadlessNoSandbox` para permitir que las pruebas de Karma se ejecuten de manera headless en la fase de test bajo el usuario root del contenedor.
 
 ---
 
@@ -111,6 +111,7 @@ Ejecuta los tests unitarios con Karma:
 ```bash
 npm run test --workspace=@edumanager/frontend -- --watch=false --browsers=ChromeHeadless
 ```
+*(Para entornos de CI/CD o contenedores Docker corriendo como root, usa `--browsers=ChromeHeadlessNoSandbox`)*
 *Resultado: **27 pruebas completadas exitosamente (100% de éxito)***
 
 ### Pruebas de Integración del Backend
@@ -129,4 +130,4 @@ La pipeline de GitLab realiza las siguientes tareas:
 2.  **Fase `build`**: Compila en orden de dependencia: primero `@edumanager/shared`, luego el backend y finalmente el frontend Angular.
 3.  **Fase `test`**:
     *   `test:backend`: Inicia un contenedor postgres temporal de servicios y corre las pruebas Jest.
-    *   `test:frontend`: Descarga Chromium a nivel de contenedor de forma automatizada y ejecuta la suite de tests de Karma de manera headless.
+    *   `test:frontend`: Descarga Chromium a nivel de contenedor de forma automatizada y ejecuta la suite de tests de Karma de manera headless utilizando el launcher `ChromeHeadlessNoSandbox`.
